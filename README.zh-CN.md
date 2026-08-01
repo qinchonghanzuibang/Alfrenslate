@@ -31,10 +31,10 @@ Alfrenslate 在本机进行 Unicode 级分析，忽略 URL、路径、标点、�
 
 ## 安装
 
-1. 打开 [GitHub Releases](https://github.com/qinchonghanzuibang/Alfrenslate/releases)。
-2. 下载 `Alfrenslate.alfredworkflow`。
-3. 双击导入 Alfred。
-4. 确认已拥有 Alfred 5 Powerpack。
+1. 从官方 [GitHub Release](https://github.com/qinchonghanzuibang/Alfrenslate/releases/latest) 下载 `Alfrenslate.alfredworkflow`。
+2. 建议将 SHA-256 与同一 Release 中的 `Alfrenslate.alfredworkflow.sha256` 对比。
+3. 双击导入 Alfred 5，并确认已拥有 Powerpack。
+4. 如果 macOS Gatekeeper 首次运行时拦截，请按下面限定范围的安全步骤放行。
 5. 打开 Workflow Configuration，至少配置并启用一个 provider。
 6. 在 Alfred 输入 `ts hello`。
 
@@ -46,6 +46,48 @@ Alfred Settings
 → Alfrenslate
 → Configure Workflow
 ```
+
+### macOS Gatekeeper
+
+当前 Release 二进制没有 Apple Developer ID 签名，Release 也没有通过 Apple notarization（公证）。因此 Apple 并未验证这些二进制，macOS 首次运行时可能显示 **“alfrenslate-arm64” Not Opened**。以下操作只应用于从 Alfrenslate 官方 GitHub Release 下载的 Workflow。
+
+放行前，建议先在 Terminal 校验下载文件：
+
+```bash
+shasum -a 256 Alfrenslate.alfredworkflow
+```
+
+将完整输出与同一 Release 附带的 `Alfrenslate.alfredworkflow.sha256` 对比。
+
+#### 方法一：通过系统设置放行
+
+1. 运行一次 `ts`，触发 Gatekeeper 拦截提示。
+2. 点击 **完成（Done）**，不要点击 **移到废纸篓（Move to Trash）**。
+3. 打开 **系统设置 → 隐私与安全性 → 安全性**。
+4. 找到 Alfrenslate 被阻止的信息。
+5. 点击 **仍要打开（Open Anyway）**。
+6. 按系统提示再次确认。
+
+#### 方法二：只移除 Alfrenslate Workflow 文件夹的 quarantine 属性
+
+1. 打开 Alfred Settings，进入 **Workflows → Alfrenslate**。
+2. 右键 Alfrenslate，选择 **Open in Finder**。
+3. 在 Terminal 输入下面的命令，然后在末尾再输入一个空格：
+
+```bash
+xattr -dr com.apple.quarantine
+```
+
+4. 将 Finder 中的 Alfrenslate Workflow 文件夹拖入 Terminal。
+5. 确认补全后的路径只指向 Alfrenslate Workflow 文件夹，再按回车执行。
+
+完整命令形式如下：
+
+```bash
+xattr -dr com.apple.quarantine "/path/to/Alfrenslate"
+```
+
+只能对来自官方 Release 的 Alfrenslate Workflow 文件夹执行。不要对整个 Downloads 目录、Home 目录或系统目录递归执行；不要对来源未知的文件执行；不要粘贴或执行自己不理解的路径。
 
 ## 配置 provider
 
@@ -150,6 +192,7 @@ API credential 保存在本机 Alfred Workflow Configuration。开启缓存时�
 
 ## 故障排除
 
+- **macOS 显示“Not Opened”：**先校验 Release checksum，再按上面的 [Gatekeeper 说明](#macos-gatekeeper)限定范围处理。
 - 未启用 provider：至少启用并配置一个。
 - 认证失败：重新填写或轮换 key，并核对 endpoint、tier、region。
 - Endpoint 或 model 不存在：检查完整 URL 和精确 model ID。
