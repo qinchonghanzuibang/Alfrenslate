@@ -10,6 +10,13 @@ trap 'rm -rf -- "$tmp_dir"' EXIT
 /usr/bin/unzip -q "$artifact" -d "$tmp_dir"
 
 /usr/bin/plutil -lint "$tmp_dir/info.plist" >/dev/null
+/usr/bin/cmp -s "$root/workflow/info.plist" "$tmp_dir/info.plist" || {
+  printf '%s\n' "Packaged info.plist differs from the verified source" >&2
+  exit 1
+}
+[ "$(/usr/libexec/PlistBuddy -c 'Print :userconfigurationconfig' "$tmp_dir/info.plist" | /usr/bin/grep -c 'variable = ')" -eq 31 ]
+[ "$(/usr/libexec/PlistBuddy -c 'Print :objects' "$tmp_dir/info.plist" | /usr/bin/grep -c 'alfred.workflow.trigger.universalaction')" -eq 1 ]
+[ "$(/usr/libexec/PlistBuddy -c 'Print :version' "$tmp_dir/info.plist")" = "1.0.1" ]
 [ "$(/usr/bin/grep -c '<key>keyword</key><string>ts</string>' "$tmp_dir/info.plist")" -eq 1 ]
 if /usr/bin/grep -Eq '<key>keyword</key><string>(tx|zh|en)</string>' "$tmp_dir/info.plist"; then
   printf '%s\n' "Package contains an unsupported daily translation keyword" >&2
@@ -24,7 +31,7 @@ done
 [ -f "$tmp_dir/icon.png" ] || { printf '%s\n' "icon.png is missing" >&2; exit 1; }
 /usr/bin/grep -q 'arm64)' "$tmp_dir/run.sh"
 /usr/bin/grep -q 'x86_64)' "$tmp_dir/run.sh"
-[ "$("$tmp_dir/run.sh" version)" = "1.0.0" ] || { printf '%s\n' "launcher version check failed" >&2; exit 1; }
+[ "$("$tmp_dir/run.sh" version)" = "1.0.1" ] || { printf '%s\n' "launcher version check failed" >&2; exit 1; }
 
 if /usr/bin/find "$tmp_dir" -type f \( -name '.env' -o -name 'prefs.plist' -o -name '.DS_Store' \) | /usr/bin/grep -q .; then
   printf '%s\n' "Package contains a forbidden local file" >&2
