@@ -31,10 +31,10 @@ All ready providers run concurrently. Successful translations appear first in yo
 
 ## Installation
 
-1. Open [GitHub Releases](https://github.com/qinchonghanzuibang/Alfrenslate/releases).
-2. Download `Alfrenslate.alfredworkflow`.
-3. Double-click it to import the workflow into Alfred.
-4. Confirm that you have Alfred 5 with the Powerpack.
+1. Download `Alfrenslate.alfredworkflow` from the official [GitHub Release](https://github.com/qinchonghanzuibang/Alfrenslate/releases/latest).
+2. Recommended: verify its SHA-256 checksum against `Alfrenslate.alfredworkflow.sha256` from the same Release.
+3. Double-click the workflow to import it into Alfred 5 with the Powerpack.
+4. If macOS Gatekeeper blocks the first run, follow the scoped instructions below.
 5. Open Workflow Configuration and enable at least one configured provider.
 6. Type `ts hello` in Alfred.
 
@@ -46,6 +46,48 @@ Alfred Settings
 → Alfrenslate
 → Configure Workflow
 ```
+
+### macOS Gatekeeper
+
+The current Release binaries do not have an Apple Developer ID signature, and the Release is not notarized by Apple. Apple has therefore not verified these binaries, and macOS may show **“alfrenslate-arm64” Not Opened** on first use. Only use either procedure below for a workflow downloaded from the official Alfrenslate GitHub Release.
+
+Before overriding Gatekeeper, verify the downloaded artifact in Terminal:
+
+```bash
+shasum -a 256 Alfrenslate.alfredworkflow
+```
+
+Compare the complete output with `Alfrenslate.alfredworkflow.sha256` attached to the same Release.
+
+#### Method 1: Allow this binary in System Settings
+
+1. Run `ts` once to trigger the Gatekeeper message.
+2. Click **Done**; do not click **Move to Trash**.
+3. Open **System Settings → Privacy & Security → Security**.
+4. Find the message saying Alfrenslate was blocked.
+5. Click **Open Anyway**.
+6. Confirm the system prompt.
+
+#### Method 2: Remove quarantine only from the Alfrenslate Workflow folder
+
+1. Open Alfred Settings and select **Workflows → Alfrenslate**.
+2. Right-click Alfrenslate and choose **Open in Finder**.
+3. In Terminal, type the following command, then add one space after it:
+
+```bash
+xattr -dr com.apple.quarantine
+```
+
+4. Drag the Alfrenslate Workflow folder from Finder into Terminal.
+5. Confirm the completed path points only to the Alfrenslate Workflow folder, then press Return.
+
+The completed command has this form:
+
+```bash
+xattr -dr com.apple.quarantine "/path/to/Alfrenslate"
+```
+
+Run this only on the Alfrenslate Workflow folder from the official Release. Do not run it recursively on Downloads, your home folder, a system directory, or files from an unknown source. Do not paste or execute a path you do not understand.
 
 ## Configure a provider
 
@@ -155,6 +197,7 @@ Credentials are stored locally by Alfred in Workflow Configuration. If caching i
 
 ## Troubleshooting
 
+- **macOS reports “Not Opened”:** verify the Release checksum, then follow the scoped [Gatekeeper instructions](#macos-gatekeeper).
 - **No provider is enabled:** enable one provider and complete its required fields.
 - **Authentication failed:** rotate or re-enter the key and check endpoint/tier/region settings.
 - **Endpoint or model not found:** verify the full compatible URL and exact model ID.
