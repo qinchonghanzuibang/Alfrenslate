@@ -1,0 +1,10 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+prefs.plist
+build/
+Alfrenslate.alfredworkflow
+Alfrenslate.alfredworkflow.sha256
+*.log
+coverage.out
