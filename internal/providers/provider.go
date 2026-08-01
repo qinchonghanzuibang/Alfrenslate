@@ -33,7 +33,7 @@ type Client struct {
 }
 
 func NewClient(timeout time.Duration, retries int) *Client {
-	return &Client{HTTP: &http.Client{Timeout: timeout, Transport: http.DefaultTransport}, Retries: retries, UserAgent: "Alfrenslate/1.0.0", MaxBody: 2 << 20, BaseDelay: 150 * time.Millisecond}
+	return &Client{HTTP: &http.Client{Timeout: timeout, Transport: http.DefaultTransport}, Retries: retries, UserAgent: "Alfrenslate/1.0.1", MaxBody: 2 << 20, BaseDelay: 150 * time.Millisecond}
 }
 
 type HTTPError struct {
