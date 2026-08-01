@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: macos-14
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x'
+          cache: true
+
+      - name: Install packaging checks
+        run: brew install librsvg shellcheck
+
+      - name: Check formatting
+        run: test -z "$(gofmt -l .)"
+
+      - name: Verify release candidate
+        run: make verify
+
+      - name: Inspect architectures
+        run: |
+          file build/alfrenslate-arm64 | grep -q 'arm64'
+          file build/alfrenslate-amd64 | grep -q 'x86_64'
+
+      - name: Upload workflow candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: Alfrenslate-workflow
+          path: |
+            Alfrenslate.alfredworkflow
+            Alfrenslate.alfredworkflow.sha256
+          if-no-files-found: error

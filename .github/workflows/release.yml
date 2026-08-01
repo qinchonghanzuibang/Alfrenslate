@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-14
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x'
+          cache: true
+
+      - name: Install release tools
+        run: brew install librsvg shellcheck
+
+      - name: Verify version consistency
+        run: |
+          test "$GITHUB_REF_NAME" = "v$(go run ./cmd/alfrenslate version)"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :version' workflow/info.plist)" = "${GITHUB_REF_NAME#v}"
+          grep -q "## \[${GITHUB_REF_NAME#v}\]" CHANGELOG.md
+
+      - name: Build and verify workflow
+        run: make verify
+
+      - name: Prepare release notes
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v version="$version" '
+            $0 ~ "^## \\[" version "\\]" {printing=1; next}
+            /^## \[/ && printing {exit}
+            printing {print}
+          ' CHANGELOG.md > release-notes.md
+          test -s release-notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            Alfrenslate.alfredworkflow \
+            Alfrenslate.alfredworkflow.sha256 \
+            --title "Alfrenslate $GITHUB_REF_NAME" \
+            --notes-file release-notes.md \
+            --verify-tag
