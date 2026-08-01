@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+  <defs>
+    <linearGradient id="hero" x1="80" y1="20" x2="1100" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9E5DC"/><stop offset="1" stop-color="#CAD5D5"/>
+    </linearGradient>
+    <filter id="s"><feDropShadow dx="0" dy="20" stdDeviation="26" flood-color="#213139" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1200" height="620" rx="36" fill="url(#hero)"/>
+  <circle cx="1020" cy="90" r="170" fill="#C6765B" opacity=".15"/>
+  <circle cx="110" cy="550" r="210" fill="#4E6470" opacity=".12"/>
+  <text x="96" y="104" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="24" font-weight="700" fill="#40545E" letter-spacing="3">ALFRENSLATE</text>
+  <text x="96" y="152" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="22" fill="#556A73">Translation at Alfred speed.</text>
+  <g filter="url(#s)">
+    <rect x="210" y="204" width="780" height="266" rx="28" fill="#26353D"/>
+    <rect x="238" y="230" width="724" height="78" rx="18" fill="#354851"/>
+    <circle cx="276" cy="269" r="13" fill="#C6765B"/>
+    <text x="310" y="278" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="29" fill="#F3F0EA">ts embodied intelligence</text>
+    <rect x="238" y="326" width="724" height="114" rx="18" fill="#F0ECE4"/>
+    <text x="276" y="376" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="34" font-weight="650" fill="#2E414A">具身智能</text>
+    <text x="276" y="414" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="17" fill="#6B7B82">DeepSeek · EN → ZH-HANS</text>
+  </g>
+  <text x="600" y="542" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="19" fill="#53676F">Product illustration · one keyword · automatic direction · multiple providers</text>
+</svg>

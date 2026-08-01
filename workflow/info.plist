@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>bundleid</key><string>com.chonghanqin.alfrenslate</string>
+  <key>category</key><string>Tools</string>
+  <key>connections</key>
+  <dict>
+    <key>0A000001-0000-4000-8000-000000000001</key>
+    <array>
+      <dict><key>destinationuid</key><string>0A000004-0000-4000-8000-000000000004</string><key>modifiers</key><integer>0</integer><key>modifiersubtext</key><string>Copy translation</string></dict>
+      <dict><key>destinationuid</key><string>0A000005-0000-4000-8000-000000000005</string><key>modifiers</key><integer>1048576</integer><key>modifiersubtext</key><string>Show with Large Type</string></dict>
+      <dict><key>destinationuid</key><string>0A000006-0000-4000-8000-000000000006</string><key>modifiers</key><integer>524288</integer><key>modifiersubtext</key><string>Copy and paste</string></dict>
+    </array>
+    <key>0A000002-0000-4000-8000-000000000002</key>
+    <array><dict><key>destinationuid</key><string>0A000007-0000-4000-8000-000000000007</string><key>modifiers</key><integer>0</integer><key>modifiersubtext</key><string>Run management action</string></dict></array>
+    <key>0A000007-0000-4000-8000-000000000007</key>
+    <array><dict><key>destinationuid</key><string>0A000008-0000-4000-8000-000000000008</string><key>modifiers</key><integer>0</integer><key>modifiersubtext</key><string>Show action result</string></dict></array>
+  </dict>
+  <key>createdby</key><string>Chonghan Qin</string>
+  <key>description</key><string>Translation at Alfred speed. Automatic direction detection with seven configurable providers.</string>
+  <key>disabled</key><false/>
+  <key>name</key><string>Alfrenslate</string>
+  <key>objects</key>
+  <array>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>argumenttype</key><integer>1</integer>
+        <key>keyword</key><string>ts</string>
+        <key>runningsubtext</key><string>Translating with enabled providers…</string>
+        <key>script</key><string>exec "./run.sh" translate --alfred --text "$1"</string>
+        <key>scriptargtype</key><integer>1</integer>
+        <key>subtext</key><string>Chinese → English · Other languages → Simplified Chinese</string>
+        <key>title</key><string>Translate with Alfrenslate</string>
+        <key>type</key><integer>0</integer>
+        <key>withspace</key><true/>
+        <key>queuedelaycustom</key><real>0.35</real>
+        <key>queuedelayimmediatelyinitially</key><true/>
+        <key>queuedelaymode</key><integer>1</integer>
+        <key>queuemode</key><integer>2</integer>
+      </dict>
+      <key>type</key><string>alfred.workflow.input.scriptfilter</string>
+      <key>uid</key><string>0A000001-0000-4000-8000-000000000001</string>
+      <key>version</key><integer>3</integer>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>argumenttype</key><integer>0</integer><key>keyword</key><string>alfrenslate</string>
+        <key>script</key><string>exec "./run.sh" manage</string><key>scriptargtype</key><integer>0</integer>
+        <key>subtext</key><string>Provider status, tests, cache, diagnostics, and documentation</string>
+        <key>title</key><string>Manage Alfrenslate</string><key>type</key><integer>0</integer><key>withspace</key><true/>
+      </dict>
+      <key>type</key><string>alfred.workflow.input.scriptfilter</string><key>uid</key><string>0A000002-0000-4000-8000-000000000002</string><key>version</key><integer>3</integer>
+    </dict>
+    <dict><key>config</key><dict><key>clipboardtext</key><string>{query}</string><key>ignoredynamicplaceholders</key><false/><key>transient</key><false/></dict><key>type</key><string>alfred.workflow.output.clipboard</string><key>uid</key><string>0A000004-0000-4000-8000-000000000004</string><key>version</key><integer>3</integer></dict>
+    <dict><key>config</key><dict><key>largetype</key><string>{query}</string><key>scrolling</key><integer>0</integer></dict><key>type</key><string>alfred.workflow.output.largetype</string><key>uid</key><string>0A000005-0000-4000-8000-000000000005</string><key>version</key><integer>3</integer></dict>
+    <dict><key>config</key><dict><key>concurrently</key><false/><key>script</key><string>exec "./paste.sh" "$1"</string><key>scriptargtype</key><integer>1</integer><key>type</key><integer>0</integer></dict><key>type</key><string>alfred.workflow.action.script</string><key>uid</key><string>0A000006-0000-4000-8000-000000000006</string><key>version</key><integer>2</integer></dict>
+    <dict><key>config</key><dict><key>concurrently</key><false/><key>script</key><string>exec "./manage-action.sh" "$1"</string><key>scriptargtype</key><integer>1</integer><key>type</key><integer>0</integer></dict><key>type</key><string>alfred.workflow.action.script</string><key>uid</key><string>0A000007-0000-4000-8000-000000000007</string><key>version</key><integer>2</integer></dict>
+    <dict><key>config</key><dict><key>lastpathcomponent</key><false/><key>onlyshowifquerypopulated</key><true/><key>removeextension</key><false/><key>text</key><string>{query}</string><key>title</key><string>Alfrenslate</string></dict><key>type</key><string>alfred.workflow.output.notification</string><key>uid</key><string>0A000008-0000-4000-8000-000000000008</string><key>version</key><integer>1</integer></dict>
+  </array>
+  <key>readme</key><string>Type `ts` followed by text. Configure at least one provider in Workflow Configuration. Alfred 5 Powerpack is required.</string>
+  <key>uidata</key>
+  <dict>
+    <key>0A000001-0000-4000-8000-000000000001</key><dict><key>xpos</key><real>140</real><key>ypos</key><real>140</real></dict>
+    <key>0A000002-0000-4000-8000-000000000002</key><dict><key>xpos</key><real>140</real><key>ypos</key><real>400</real></dict>
+    <key>0A000004-0000-4000-8000-000000000004</key><dict><key>xpos</key><real>500</real><key>ypos</key><real>100</real></dict>
+    <key>0A000005-0000-4000-8000-000000000005</key><dict><key>xpos</key><real>500</real><key>ypos</key><real>180</real></dict>
+    <key>0A000006-0000-4000-8000-000000000006</key><dict><key>xpos</key><real>500</real><key>ypos</key><real>260</real></dict>
+    <key>0A000007-0000-4000-8000-000000000007</key><dict><key>xpos</key><real>500</real><key>ypos</key><real>400</real></dict>
+    <key>0A000008-0000-4000-8000-000000000008</key><dict><key>xpos</key><real>760</real><key>ypos</key><real>400</real></dict>
+  </dict>
+  <key>userconfigurationconfig</key>
+  <array>
+    <dict><key>config</key><dict><key>label</key><string>General</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>deepseek,openai-compatible,deepl,youdao,baidu,google,microsoft</string><key>description</key><string>Comma-separated provider IDs in display order.</string><key>label</key><string>Provider order</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>PROVIDER_ORDER</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>8</string><key>description</key><string>Per-provider timeout in seconds (1–60).</string><key>label</key><string>Request timeout</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>REQUEST_TIMEOUT_SECONDS</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>1</string><key>description</key><string>Retries for network, 429, and recoverable 5xx failures (0–5).</string><key>label</key><string>Retry count</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>RETRY_COUNT</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><true/><key>description</key><string>Store translations only in Alfred's local workflow cache.</string><key>label</key><string>Enable local cache</string><key>variable</key><string>CACHE_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>24</string><key>description</key><string>Hours before a cached translation expires.</string><key>label</key><string>Cache lifetime</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>CACHE_TTL_HOURS</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>DeepSeek</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Include DeepSeek in each translation.</string><key>label</key><string>Enable DeepSeek</string><key>variable</key><string>DEEPSEEK_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Create one in the DeepSeek platform.</string><key>label</key><string>DeepSeek API Key</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>DEEPSEEK_API_KEY</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>https://api.deepseek.com</string><key>description</key><string>Official OpenAI-compatible API base URL.</string><key>label</key><string>DeepSeek Base URL</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>DEEPSEEK_BASE_URL</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>deepseek-v4-flash</string><key>description</key><string>Low-latency non-thinking model; editable for future models.</string><key>label</key><string>DeepSeek Model</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>DEEPSEEK_MODEL</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>OpenAI-Compatible</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Use an OpenAI-compatible Chat Completions service.</string><key>label</key><string>Enable OpenAI-Compatible</string><key>variable</key><string>OPENAI_COMPATIBLE_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Enter a /v1 base or complete /chat/completions URL.</string><key>label</key><string>Base URL</string><key>required</key><false/><key>trim</key><true/><key>variable</key><string>OPENAI_COMPATIBLE_BASE_URL</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Optional for local services without authentication.</string><key>label</key><string>API Key</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>OPENAI_COMPATIBLE_API_KEY</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Exact model ID exposed by your service.</string><key>label</key><string>Model</string><key>required</key><false/><key>trim</key><true/><key>variable</key><string>OPENAI_COMPATIBLE_MODEL</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>DeepL</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Include DeepL in each translation.</string><key>label</key><string>Enable DeepL</string><key>variable</key><string>DEEPL_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. DeepL API authentication key.</string><key>label</key><string>DeepL API Key</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>DEEPL_API_KEY</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>free</string><key>description</key><string>Use free, pro, or custom.</string><key>label</key><string>API Tier</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>DEEPL_API_TIER</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required only when API Tier is custom.</string><key>label</key><string>Custom Base URL</string><key>required</key><false/><key>trim</key><true/><key>variable</key><string>DEEPL_BASE_URL</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>Youdao</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Include Youdao Text Translation.</string><key>label</key><string>Enable Youdao</string><key>variable</key><string>YOUDAO_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Youdao application ID.</string><key>label</key><string>App Key</string><key>required</key><false/><key>trim</key><true/><key>variable</key><string>YOUDAO_APP_KEY</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Youdao application secret.</string><key>label</key><string>App Secret</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>YOUDAO_APP_SECRET</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>general</string><key>description</key><string>general, computers, medicine, finance, or game.</string><key>label</key><string>Domain</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>YOUDAO_DOMAIN</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>Baidu</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Include Baidu Translate.</string><key>label</key><string>Enable Baidu</string><key>variable</key><string>BAIDU_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Baidu Translate App ID.</string><key>label</key><string>App ID</string><key>required</key><false/><key>trim</key><true/><key>variable</key><string>BAIDU_APP_ID</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Baidu Translate App Secret.</string><key>label</key><string>App Secret</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>BAIDU_APP_SECRET</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>Google</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Include Google Cloud Translation Basic v2.</string><key>label</key><string>Enable Google</string><key>variable</key><string>GOOGLE_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. API key from a project with Cloud Translation enabled.</string><key>label</key><string>Google Cloud Translation API Key</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>GOOGLE_API_KEY</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>Microsoft</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Include Microsoft Translator.</string><key>label</key><string>Enable Microsoft Translator</string><key>variable</key><string>MICROSOFT_ENABLED</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Required. Azure Translator subscription key.</string><key>label</key><string>Subscription Key</string><key>password</key><true/><key>required</key><false/><key>trim</key><true/><key>variable</key><string>MICROSOFT_API_KEY</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string></string><key>description</key><string>Resource region when required by your Azure resource type.</string><key>label</key><string>Region</string><key>required</key><false/><key>trim</key><true/><key>variable</key><string>MICROSOFT_REGION</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+    <dict><key>config</key><dict><key>default</key><string>https://api.cognitive.microsofttranslator.com</string><key>description</key><string>Azure Translator endpoint; /translate is normalized automatically.</string><key>label</key><string>Endpoint</string><key>required</key><true/><key>trim</key><true/><key>variable</key><string>MICROSOFT_ENDPOINT</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.text</string></dict>
+
+    <dict><key>config</key><dict><key>label</key><string>Advanced</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.group</string></dict>
+    <dict><key>config</key><dict><key>default</key><false/><key>description</key><string>Enable minimal diagnostic logging. Queries, translations, and credentials are not logged.</string><key>label</key><string>Debug logging</string><key>variable</key><string>DEBUG_LOGGING</string></dict><key>type</key><string>alfred.workflow.workflowconfiguration.checkbox</string></dict>
+  </array>
+  <key>variablesdontexport</key><array><string>DEEPSEEK_API_KEY</string><string>OPENAI_COMPATIBLE_API_KEY</string><string>DEEPL_API_KEY</string><string>YOUDAO_APP_SECRET</string><string>BAIDU_APP_SECRET</string><string>GOOGLE_API_KEY</string><string>MICROSOFT_API_KEY</string></array>
+  <key>version</key><string>1.0.0</string>
+  <key>webaddress</key><string>https://github.com/qinchonghanzuibang/Alfrenslate</string>
+</dict>
+</plist>
