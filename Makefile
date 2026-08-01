@@ -1,6 +1,7 @@
 SHELL := /bin/zsh
 GO ?= go
 GOCACHE ?= /tmp/alfrenslate-go-cache
+VERSION := 1.0.1
 BUILD_DIR := build
 STAGE_DIR := $(BUILD_DIR)/workflow
 ARTIFACT := Alfrenslate.alfredworkflow
@@ -42,7 +43,7 @@ package: build icon
 verify: format test vet package
 	@/usr/bin/plutil -lint workflow/info.plist
 	@version=$$(build/workflow/run.sh version); \
-	  [[ "$$version" == "1.0.0" ]]; \
+	  [[ "$$version" == "$(VERSION)" ]]; \
 	  [[ "$$version" == "$$("/usr/libexec/PlistBuddy" -c 'Print :version' workflow/info.plist)" ]]; \
 	  grep -q "## \[$$version\]" CHANGELOG.md
 	@scripts/secret-scan.sh
